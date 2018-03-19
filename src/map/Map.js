@@ -353,7 +353,7 @@ export var Map = Evented.extend({
 	// @method flyTo(latlng: LatLng, zoom?: Number, options?: Zoom/pan options): this
 	// Sets the view of the map (geographical center and zoom) performing a smooth
 	// pan-zoom animation.
-	flyTo: function (targetCenter, targetZoom, options) {
+	flyTo: function (targetCenter, targetZoom, options, fromCenter) {
 
 		options = options || {};
 		if (options.animate === false || !Browser.any3d) {
@@ -362,7 +362,7 @@ export var Map = Evented.extend({
 
 		this._stop();
 
-		var from = this.project(this.getCenter()),
+		var from = fromCenter ? this.project(fromCenter) : this.project(this.getCenter()),
 		    to = this.project(targetCenter),
 		    size = this.getSize(),
 		    startZoom = this._zoom;
